@@ -1,0 +1,1 @@
+java -cp .;workwave.jar;lib/mysql-connector-java-8.0.30.jar Test

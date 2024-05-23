@@ -67,6 +67,9 @@ public class CheckWorkList extends JFrame{
         table.setForeground(Color.lightGray);
         table.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true));
         table.setRowHeight(30);
+        table.setRowSelectionAllowed(true);
+        table.setAutoscrolls(true);
+        table.setToolTipText("Please don't change values of this table, editing is not saved!");
         table.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 
         // Add the table to the scroll pane
@@ -139,6 +142,23 @@ public class CheckWorkList extends JFrame{
             }
         });
 
+//      --
+        JMenu m4 = new JMenu("Refresh");
+        m4.setForeground(Color.lightGray);
+        menu.add(m4);
+//      --
+        JMenuItem i4 = new JMenuItem("Refresh the application");
+        m4.add(i4);
+
+        i4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                new CheckWorkList(username).setVisible(true);
+                dispose();
+            }
+        });
+
         panel.add(menu);
 
 //      --
@@ -174,11 +194,24 @@ public class CheckWorkList extends JFrame{
                 try {
                     int progress_edit = Integer.parseInt(progressField.getText());
                     String x = "completed";
-
+//                    --
+                    try {
+                        String idsql = "Select workID from work_table where username = '" + username + "' AND workID='" + progress_edit + "'";
+                        ResultSet rs = new Conn().statement.executeQuery(idsql);
+                        if(rs.next()==false){
+                            JOptionPane.showMessageDialog(null,"please enter a valid workid, simply copy n paste");
+                            return;
+                        }
+                    }catch (Exception aa){
+                        JOptionPane.showMessageDialog(null, "try again.");
+                    }
+//                   --
                     new Conn().statement.executeUpdate("Update work_table set progress = '"+x+"' where username = '"+username+"' AND workID ='"+progress_edit+"'");
                     JOptionPane.showMessageDialog(null,"Update successful, kindly refresh once.");
                 } catch (SQLException ex) {
                     ex.printStackTrace();
+                } catch (Exception abc){
+                    JOptionPane.showMessageDialog(null,"please enter valid values only!");
                 }
             }
         });
@@ -193,10 +226,25 @@ public class CheckWorkList extends JFrame{
                     int progress_edit = Integer.parseInt(progressField.getText());
                     String x = "not doing anymore";
 
+                    //                    --
+                    try {
+                        String idsql = "Select workID from work_table where username = '" + username + "' AND workID='" + progress_edit + "'";
+                        ResultSet rs = new Conn().statement.executeQuery(idsql);
+                        if(rs.next()==false){
+                            JOptionPane.showMessageDialog(null,"please enter a valid workid, simply copy n paste");
+                            return;
+                        }
+                    }catch (Exception aa){
+                        JOptionPane.showMessageDialog(null, "try again.");
+                    }
+//                   --
+
                     new Conn().statement.executeUpdate("Update work_table set progress = '"+x+"' where username = '"+username+"' AND workID ='"+progress_edit+"'");
                     JOptionPane.showMessageDialog(null,"Update successful, kindly refresh once.");
                 } catch (SQLException ex) {
                     ex.printStackTrace();
+                } catch (Exception abc){
+                    JOptionPane.showMessageDialog(null,"please enter valid values only!");
                 }
             }
         });

@@ -106,8 +106,8 @@ public class Timerx extends JFrame{
                     if(result.next())
                     totalTime = result.getInt("time");
                     setWork = result.getString("work");
-                    workField.setText(" You said : "+setWork);
-                    timeField.setText(" Total Time : "+ totalTime +" hours.");
+                    workField.setText("-> "+setWork);
+                    timeField.setText(" Total Time : "+ totalTime +" minutes");
 
                     startTime = ""+new Date();
 //                    System.out.println(startTime);
@@ -167,7 +167,7 @@ public class Timerx extends JFrame{
         radioGroup.add(longbreak);
 
 //      -- Timer --
-        timeRemaining = 35 * 60; // 35-minute work session -- 1500 seconds = 25 minutes
+        timeRemaining = 2 * 60; // 35-minute work session -- 1500 seconds = 25 minutes | for demo -> 2mins
         timer = new Timer(1000, new Timerx.TimerListener()); // Timer is an in-built class | 1000 delay means 1 sec
 
         timeLabel = new JLabel();
@@ -308,17 +308,23 @@ public class Timerx extends JFrame{
             // action performed
             timeRemaining--;
             updateLabel();
-            if(timeRemaining==60)
+            if(timeRemaining==20 && shortbreak.isSelected())
+                JOptionPane.showMessageDialog(null,"Hey, are you done with your short break? if Yes then select the pomodoro as a option to get back to work!");
+            else if(timeRemaining==20 && longbreak.isSelected())
+                JOptionPane.showMessageDialog(null,"Hey, looks like you enjoyed your long break, lets get back to the work. Please chose pomodoro as option to begin your working session.");
+            else if(timeRemaining==20 && pomodoro.isSelected())
                 JOptionPane.showMessageDialog(null,"Do you want to take rest, if YES then reset the timer by selecting choices given in application.");
+            else if(timeRemaining==20)
+                JOptionPane.showMessageDialog(null,"Sorry to interrupt but can you please tell us whether you will like to continue work or want to have some break-time. You can do this by choosing one of the radio buttons, please do this!");
             if(timeRemaining==0){
                 stopTimer();
                 JOptionPane.showMessageDialog(null,"Great going, keep it up! (Re-Press the start button)");
                 if(longbreak.isSelected())
-                    x=10; // 10 minutes
+                    x=2; // 10 minutes | demo -> 2 mins of long break
                 else if(shortbreak.isSelected())
-                    x=5;  // 5 minutes
+                    x=1;  // 5 minutes | demo -> 1 min of short break
                 else
-                    x=25; // 25 minutes
+                    x=3; // 25 minutes | demo -> 3 mins of work time
                 timeRemaining = x * 60;
                 updateLabel();
             }

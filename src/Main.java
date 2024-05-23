@@ -62,6 +62,7 @@ public class Main extends JFrame{
 //      --
         addWorkField = new JTextField();
         addWorkField.setToolTipText("e.g. I want to do study...");
+        addWorkField.replaceSelection("work: ");
         addWorkField.setFont(new Font("Sans-serif",Font.PLAIN,17));
         addWorkField.setForeground(Color.DARK_GRAY);
         addWorkField.setBounds(15,120,width/2-150,35);
@@ -75,17 +76,27 @@ public class Main extends JFrame{
         panel.add(time);
 //      --
         timeFeild = new JTextField();
-        timeFeild.setToolTipText("enter time (hours)");
+        timeFeild.setToolTipText("integer values only");
+//        timeFeild.replaceSelection("enter time in minutes");
+        JLabel label1 = new JLabel("enter time in minutes: ");
+        label1.setBounds(15,210,135,35);
+        label1.setForeground(Color.white);
+        panel.add(label1);
         timeFeild.setFont(new Font("Sans-serif",Font.PLAIN,17));
         timeFeild.setForeground(Color.DARK_GRAY);
-        timeFeild.setBounds(15,210,width/10,35);
+        timeFeild.setBounds(160,210,width/10,35);
         panel.add(timeFeild);
 //      --
         priorityFeild = new JTextField();
         priorityFeild.setToolTipText("enter priority number (1-10)");
+        JLabel label2 = new JLabel("enter priority: ");
+        label2.setBounds(335,210,100,35);
+        label2.setForeground(Color.white);
+        panel.add(label2);
+//        priorityFeild.replaceSelection("enter a number as priority");
         priorityFeild.setFont(new Font("Sans-serif",Font.PLAIN,17));
         priorityFeild.setForeground(Color.DARK_GRAY);
-        priorityFeild.setBounds(180,210,width/10,35);
+        priorityFeild.setBounds(450,210,width/10,35);
         panel.add(priorityFeild);
 
 //      --
@@ -169,6 +180,8 @@ public class Main extends JFrame{
                 "     their daily goals and work tasks, customize the timer duration and break intervals, receive" +
                 "      motivational messages, and track progress. Work Wave is a user-friendly and effective tool" +
                 "    for anyone looking to improve their productivity and stay focused on their goals.");
+
+
         para2.setLineWrap(true);
         para2.setWrapStyleWord(true);
         para2.setBounds(15,595,width/3+150,120);
@@ -186,8 +199,23 @@ public class Main extends JFrame{
                     connection = new Conn();
 
                     String work = addWorkField.getText();
-                    int time = Integer.parseInt(timeFeild.getText());
-                    int priority = Integer.parseInt(priorityFeild.getText());
+                    int time = 0;
+                    int priority = 0;
+                    try{
+                        time = Integer.parseInt(timeFeild.getText());
+                        priority = Integer.parseInt(priorityFeild.getText());
+                    }catch(Exception xyz){
+                        JOptionPane.showMessageDialog(null,"Only integer values are allowed!!");
+                        return;
+                    }
+                    if(time<0){
+                        JOptionPane.showMessageDialog(null,"time must be positive value only");
+                        return;
+                    }
+                    if(priority<1 || priority>10){
+                        JOptionPane.showMessageDialog(null, "priority should be in between 1-10 only");
+                        return;
+                    }
                     String user = username;
                     String progress = "working on it";
 

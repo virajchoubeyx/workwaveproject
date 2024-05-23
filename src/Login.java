@@ -8,7 +8,8 @@ public class Login extends JFrame implements ActionListener{
     private JPanel panel;
     private JLabel title;
     private JButton login;
-    private JTextField userField, passField;
+    private JTextField userField;
+    private JPasswordField passField;
 
     private Conn conn;
     private ResultSet result;
@@ -70,7 +71,7 @@ public class Login extends JFrame implements ActionListener{
         userField.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true));
         panel.add(userField);
 
-        passField = new JTextField();
+        passField = new JPasswordField();
         passField.setFont(g);
         passField.setForeground(Color.darkGray);
         passField.setBounds(280,290,300,30);

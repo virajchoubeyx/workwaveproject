@@ -1,10 +1,12 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="WorkWave:jar">
+  <artifact type="jar" build-on-make="true" name="WorkWave:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/WorkWave_jar</output-path>
     <root id="archive" name="WorkWave.jar">
       <element id="module-output" name="WorkWave" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../rs2xml.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../mysql-connector-java-8.0.30.jar" path-in-jar="/" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../mysql-connector-java-8.0.30.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../rs2xml.jar" />
     </root>
   </artifact>
 </component>

@@ -122,6 +122,26 @@ public class Profile extends JFrame{
         back.setBackground(Color.lightGray);
         back.setForeground(Color.BLACK);
         panel.add(back);
+
+        JButton delete = new JButton("Delete Account");
+
+        delete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    new Conn().statement.executeUpdate("Delete From account where username ='"+user_name+"'");
+                    JOptionPane.showMessageDialog(null,"Your account is deleted sucessfully.");
+                    System.exit(0);
+                }catch (Exception abc){
+//                    --
+                }
+            }
+        });
+        delete.setBounds(250,height-230,230,30);
+        delete.setFont(f);
+        delete.setBackground(Color.red);
+        delete.setForeground(Color.white);
+        panel.add(delete);
     }
 
     public static void main(String[] args) {
